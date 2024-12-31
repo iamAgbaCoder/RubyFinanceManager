@@ -1,0 +1,20 @@
+{
+  "Users": {
+    "1": {
+      "email": "johndoe@mail.com",
+      "acctNumber": 9927384934,
+      "acctPasscode": 2034,
+      "first_name": "John",
+      "last_name": "Doe",
+      "phone_number": "+4433344"
+    },
+    "2": {
+      "email": "peterdoe@mail.com",
+      "acctNumber": 1234567890,
+      "acctPasscode": 1234,
+      "first_name": "Peter",
+      "last_name": "Doe",
+      "phone_number": "+334556560"
+    }
+  }
+}
