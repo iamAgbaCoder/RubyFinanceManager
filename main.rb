@@ -1,5 +1,7 @@
 require 'json'
+require_relative 'libs/auth'
 require_relative 'libs/utlis'
+require_relative 'account/profile'
 
  $db = nil # Instaniate dummy DB
 
@@ -36,7 +38,7 @@ def welcome()
     return createAccount()
 
   when "2"
-    return loginUser()
+    return loginUserView()
 
   when "3"
     return customerCare()
@@ -51,51 +53,8 @@ def welcome()
 
 end
 
-def email_exists?(email);
-  $db['Users'].each do |id, user|
-    return true if user['email'] == email
-  end
-  false
-end
 
-def verify_phonenumber()
-  loop do
-    print "==> Enter your Phone Number: "
-    number = gets.chomp().to_s
 
-    if !number.match(/^(\+\d+)(\d+)$/)
-      puts "==> ERROR: Please enter your number with your country code!"
-    else
-      country_code = $1
-      phone_number = $2
-
-      $db["Users"].each do |id, user|
-        if phone_number != user["phone_number"]
-          return phone_number, country_code
-        else
-          puts "ERROR: This Phone Number [#{phone_number}] already exists!. Enter a different Phone Number"
-        end
-      end
-    end
-  end
-end
-# Function to get User email
-def get_email()
-  loop do
-    print '==> Enter your email address: '
-    email = gets.chomp().to_s
-
-    if email.include?("@") && email.include?(".com") # checks if '@' and '.com' are in the email string
-      if email_exists?(email)
-        puts "Error: Email already exists. Please enter a different email."
-      else
-        return email # exits and returns email
-      end
-    else
-        puts "Error: Please enter a valid email address!"
-    end
-  end
-end
 
 # Method to create user account
 def createAccount();
@@ -109,6 +68,7 @@ def createAccount();
 
   email = get_email()
   phone_number, country_code = verify_phonenumber()
+  setup_profile(email, phone_number, country_code)
 
 
   # response = gets.chomp().to_i
@@ -116,41 +76,23 @@ def createAccount();
 end
 
 # Method to authenticate Users
-def loginUser()
-  puts ''
-  puts "==================================="
-  puts "Login in to your account".upcase()
-  puts "==================================="
-  puts 'Welcome Back, Dear Esteemed Customer'
-  puts ''
+def loginUserView()
+  puts '''
+        ===================================
+              LOGIN TO YOUR ACCOUNT
+        ===================================
+        Welcome Back, Dear Esteemed Customer
+  '''
+
   print "Enter your Account Number: "
   acctNumber = gets.chomp().to_i
   print "Enter your 4-digt PIN: "
   acctPasscode = gets.chomp().to_i
 
-  if $db['Users']
-    $db["Users"].each do |id, user|
-      # puts id, id.inspect
-      if user["acctNumber"] == acctNumber
-        if user["acctPasscode"] == acctPasscode
-          return UserProfile(user_id=id) # Exit the method after successful login
-        else
-          puts "Incorrect PIN or Account Details"
-          return loginUser() # Recursive call for retrying login
-        end
-      end
-    end
-  end
-  # If no matching account is found
-  puts "Incorrect PIN or Account Details"
-  loginUser() # Recursive call for retrying login
+  login(acctNumber, acctPasscode)
 end
 
 
-def UserProfile(user_id)
-  puts '---------------------------------'
-  puts "Hello, #{$db['Users'][user_id]["first_name"]} #{$db['Users'][user_id]["last_name"]}"
-end
 
 
 welcome
