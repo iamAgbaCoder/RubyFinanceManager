@@ -1,28 +1,15 @@
-require 'json'
+require_relative 'db/users'
 require_relative 'libs/auth'
 require_relative 'libs/utlis'
 require_relative 'account/profile'
 
- $db = nil # Instaniate dummy DB
 
-File.open("db/db.json", "r") do |file|
-  $db = JSON.parse(file.read)
-  # puts $db
-end
-
-# puts $db['Users']["1"], $db['Users']["1"]["acctPasscode"]
-
-# for user in $db["Users"]
-# $db['Users'].each do |user|
-  # puts user
-# puts $db["Users"].inspect
-# end
 
 def welcome()
   # Method to welcome Users
   puts ""
   puts "======================================"
-  puts "Welcome to Wema Bank!\n\n".upcase()
+  puts "Welcome to Wema Bank!".upcase()
   puts "======================================="
   puts "What would you like to do today?"
   puts "[1] Open an account"
