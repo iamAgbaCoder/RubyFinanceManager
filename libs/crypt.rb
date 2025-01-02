@@ -17,7 +17,7 @@ def generate_account_number()
 
     if acctNumber_exists?(acctNumber)
       puts "Regenerating Unique Account Number..."
-      sleep(2)
+      sleep(3)
     else
       return acctNumber
       break

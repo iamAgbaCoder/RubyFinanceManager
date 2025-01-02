@@ -1,12 +1,12 @@
 require_relative 'db/users'
-require_relative 'libs/auth'
-require_relative 'libs/utlis'
-require_relative 'account/profile'
+require_relative 'libs/signup'
+require_relative 'libs/signin'
 
 
 
 def welcome()
   # Method to welcome Users
+  system("cls") | system("clear")
   puts ""
   puts "======================================"
   puts "Welcome to Wema Bank!".upcase()
@@ -22,9 +22,11 @@ def welcome()
   # verify User's input
   case response
   when "1"
-    return createAccount()
+    system("cls") | system("clear") # clears terminal screen and loads the signup page
+    return createAccountView()
 
   when "2"
+    system("cls") | system("clear") # clears terminal screen and loads the signin page
     return loginUserView()
 
   when "3"
@@ -43,41 +45,9 @@ end
 
 
 
-# Method to create user account
-def createAccount();
-  puts ""
-  puts "========================"
-  puts "CREATE A WEMA ACCOUNT"
-  puts "========================\n"
 
 
-  puts "Please carefully enter valid response. Let's get you started!"
 
-  email = get_email()
-  phone_number, country_code = verify_phonenumber()
-  setup_profile(email, phone_number, country_code)
-
-
-  # response = gets.chomp().to_i
-
-end
-
-# Method to authenticate Users
-def loginUserView()
-  puts '''
-        ===================================
-              LOGIN TO YOUR ACCOUNT
-        ===================================
-        Welcome Back, Dear Esteemed Customer
-  '''
-
-  print "Enter your Account Number: "
-  acctNumber = gets.chomp().to_i
-  print "Enter your 4-digt PIN: "
-  acctPasscode = gets.chomp().to_i
-
-  login(acctNumber, acctPasscode)
-end
 
 
 
