@@ -3,6 +3,7 @@ require_relative "../db/users"
 require_relative "signin"
 require_relative "utils"
 require_relative "auth"
+require_relative '../account/profile'
 
 def login(acctNumber, acctPasscode);
 
@@ -10,7 +11,7 @@ def login(acctNumber, acctPasscode);
     $db["Users"].each do |id, user|
       # puts id, id.inspect
       if user["acctNumber"] == acctNumber.to_i
-        if user["acctPasscode"] == acctPasscode.to_1
+        if user["acctPasscode"] == acctPasscode.to_i
           # return id
           return UserProfile(user_id=id) # Exit the method after successful login
         else

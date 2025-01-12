@@ -1,0 +1,15 @@
+{
+  "Users": {
+    "1": {
+      "email": "mail@@mail.com",
+      "acctNumber": 2816104629,
+      "acctPasscode": 0,
+      "country_code": "+3903444",
+      "phone_number": "5",
+      "gender": "Male",
+      "first_name": "Favour",
+      "middle_name": "Lade",
+      "last_name": "Bamgboye"
+    }
+  }
+}
